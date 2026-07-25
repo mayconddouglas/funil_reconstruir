@@ -41,9 +41,7 @@ export function Intro({ onStart }: { onStart: () => void }) {
           {OBRAS.map((obra, i) => (
             <div
               key={obra.src}
-              className={`relative aspect-3/4 overflow-hidden rounded-md border border-border ${
-                i > 1 ? "hidden sm:block" : ""
-              }`}
+              className="relative aspect-3/4 overflow-hidden rounded-md border border-border"
             >
               <Image
                 src={obra.src || "/placeholder.svg"}
