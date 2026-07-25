@@ -39,11 +39,12 @@ export function Funnel() {
         <CheckCircle2 className="size-16 text-primary" />
         <div className="flex flex-col gap-3">
           <h2 className="text-balance font-display text-4xl font-bold uppercase leading-[0.95] tracking-tight sm:text-5xl">
-            Recebemos o seu pedido
+            Pronto! Já é com a gente
           </h2>
           <p className="text-pretty leading-relaxed text-muted-foreground">
-            Abrimos uma conversa no WhatsApp com o resumo do seu projeto. Se ela
-            não abrir automaticamente, é só tocar no botão abaixo.
+            Abrimos uma conversa no WhatsApp com o resumo da sua obra. Nossa
+            equipe aqui em Recife já vai te responder. Se a conversa não abrir
+            sozinha, é só tocar no botão abaixo.
           </p>
         </div>
         <a

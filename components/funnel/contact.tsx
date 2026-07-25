@@ -59,11 +59,12 @@ export function ContactStep({ total, onBack, onSubmit }: ContactStepProps) {
             (Quase lá)
           </span>
           <h2 className="text-balance font-display text-4xl font-bold uppercase leading-[0.95] tracking-tight sm:text-5xl">
-            Para onde enviamos sua proposta?
+            Para onde enviamos seu orçamento?
           </h2>
           <p className="text-pretty leading-relaxed text-muted-foreground">
-            Um especialista vai te chamar no WhatsApp com um plano feito a partir
-            das suas respostas. Nada de robôs.
+            Um especialista daqui do Recife vai te chamar no WhatsApp com um
+            plano feito a partir das suas respostas. Atendimento de gente de
+            verdade, sem robô.
           </p>
         </div>
 
@@ -90,20 +91,20 @@ export function ContactStep({ total, onBack, onSubmit }: ContactStepProps) {
               inputMode="numeric"
               value={whatsapp}
               onChange={(e) => setWhatsapp(maskPhone(e.target.value))}
-              placeholder="(11) 99999-9999"
+              placeholder="(81) 99999-9999"
               className="rounded-md border border-border bg-card px-4 py-3.5 text-foreground outline-none transition-colors placeholder:text-muted-foreground/60 focus:border-primary"
             />
           </label>
 
           <label className="flex flex-col gap-2">
             <span className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-              Cidade <span className="normal-case">(opcional)</span>
+              Bairro / Cidade <span className="normal-case">(opcional)</span>
             </span>
             <input
               type="text"
               value={cidade}
               onChange={(e) => setCidade(e.target.value)}
-              placeholder="Onde será a obra?"
+              placeholder="Ex.: Boa Viagem, Recife"
               className="rounded-md border border-border bg-card px-4 py-3.5 text-foreground outline-none transition-colors placeholder:text-muted-foreground/60 focus:border-primary"
             />
           </label>
