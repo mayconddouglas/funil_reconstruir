@@ -19,7 +19,7 @@ export function Intro({ onStart }: { onStart: () => void }) {
           Recon<span className="text-primary">struir</span>
         </span>
         <span className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-muted-foreground">
-          (Construção &amp; Reforma)
+          (Recife · RMR)
         </span>
       </header>
 
@@ -27,12 +27,12 @@ export function Intro({ onStart }: { onStart: () => void }) {
       <div className="flex flex-1 flex-col justify-center gap-10 py-12">
         <div className="flex flex-col gap-6">
           <span className="font-mono text-xs uppercase tracking-[0.25em] text-primary">
-            (01) — Obras que duram gerações
+            (01) — Construção e reforma em toda a RMR
           </span>
           <h1 className="text-balance font-display text-5xl font-bold uppercase leading-[0.92] tracking-tight sm:text-7xl">
-            Do papel à realidade,
+            Sua obra dos sonhos
             <br />
-            <span className="text-primary">sem dor de cabeça</span>
+            <span className="text-primary">começa aqui no Recife</span>
           </h1>
         </div>
 
@@ -58,14 +58,15 @@ export function Intro({ onStart }: { onStart: () => void }) {
         {/* headline comovente + mini texto */}
         <div className="flex max-w-2xl flex-col gap-4">
           <p className="text-pretty font-serif text-2xl italic leading-snug sm:text-3xl">
-            &ldquo;Cada obra carrega o sonho de uma família.&rdquo;
+            &ldquo;Aqui em Recife, sua obra fica em boas mãos.&rdquo;
           </p>
           <p className="text-pretty leading-relaxed text-muted-foreground">
-            Sabemos o peso de confiar a alguém o lugar onde a sua vida vai
-            acontecer. Por isso tratamos cada projeto como se fosse o nosso: com
-            transparência, prazo respeitado e acabamento impecável. Conte pra
-            gente o que você imagina — em menos de um minuto preparamos uma
-            proposta feita só para você.
+            Construir ou reformar em Recife e na Região Metropolitana não
+            precisa ser sinônimo de dor de cabeça, atraso e orçamento
+            estourado. Cuidamos de tudo pra você — do projeto ao acabamento —
+            com prazo respeitado, obra limpa e transparência do início ao fim.
+            Conte o que você quer fazer e, em menos de 1 minuto, montamos uma
+            proposta sob medida para a sua realidade.
           </p>
         </div>
 
@@ -75,11 +76,11 @@ export function Intro({ onStart }: { onStart: () => void }) {
             onClick={onStart}
             className="group inline-flex w-full items-center justify-center gap-3 rounded-md bg-primary px-8 py-5 font-display text-lg font-semibold uppercase tracking-wide text-primary-foreground transition-colors hover:bg-primary/90 sm:w-auto"
           >
-            Quero minha proposta
+            Quero um orçamento
             <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" />
           </button>
           <span className="font-mono text-xs text-muted-foreground">
-            Leva menos de 1 minuto. Sem compromisso.
+            Atendemos toda a RMR · Leva menos de 1 minuto · Sem compromisso
           </span>
         </div>
       </div>
