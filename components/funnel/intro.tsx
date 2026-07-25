@@ -19,7 +19,7 @@ export function Intro({ onStart }: { onStart: () => void }) {
           Recon<span className="text-primary">struir</span>
         </span>
         <span className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-muted-foreground">
-          (Recife &amp; Região Metropolitana)
+          (Recife · RMR)
         </span>
       </header>
 
