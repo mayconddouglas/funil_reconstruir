@@ -4,10 +4,10 @@ import Image from "next/image"
 import { ArrowRight } from "lucide-react"
 
 const OBRAS = [
-  { src: "/obras/obra-1.png", alt: "Residência de alto padrão em construção ao entardecer" },
-  { src: "/obras/obra-2.png", alt: "Sala de estar moderna finalizada com pé-direito alto" },
-  { src: "/obras/obra-3.png", alt: "Fachada de edifício residencial contemporâneo" },
-  { src: "/obras/obra-4.png", alt: "Equipe de engenharia analisando o projeto na obra" },
+  { src: "/obras/obra-1.jpg", alt: "Área de refeições com mesa de mármore e janelão com vista para piscina e mar" },
+  { src: "/obras/obra-2.jpg", alt: "Sala e cozinha integradas com acabamento de alto padrão e vista para o mar" },
+  { src: "/obras/obra-3.jpg", alt: "Suíte com cabeceira sob medida e varanda com vista para o mar" },
+  { src: "/obras/obra-4.jpg", alt: "Sala ampla com iluminação linear de LED embutida no teto" },
 ]
 
 export function Intro({ onStart }: { onStart: () => void }) {

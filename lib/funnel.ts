@@ -4,7 +4,7 @@
 //  Formato internacional, somente dígitos: 55 (Brasil) + DDD + número.
 //  Ex.: (11) 98888-7777  ->  "5511988887777"
 // ================================================================
-export const WHATSAPP_NUMBER = "5511999999999"
+export const WHATSAPP_NUMBER = "5581987723203"
 
 export type Choice = {
   value: string
