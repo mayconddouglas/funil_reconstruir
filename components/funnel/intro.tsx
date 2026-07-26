@@ -30,10 +30,15 @@ export function Intro({ onStart }: { onStart: () => void }) {
             (01) — Obras que duram gerações
           </span>
           <h1 className="text-balance font-display text-5xl font-bold uppercase leading-[0.92] tracking-tight sm:text-7xl">
-            Do papel à realidade,
+            Sua obra de alto padrão com
             <br />
-            <span className="text-primary">sem dor de cabeça</span>
+            <span className="text-primary">previsibilidade total de custo e prazo</span>
           </h1>
+          <p className="max-w-2xl text-pretty leading-relaxed text-muted-foreground">
+            Descubra em 60 segundos o investimento necessário para o seu
+            projeto, com base em 10 anos de experiência em engenharia
+            premium.
+          </p>
         </div>
 
         {/* faixa de fotos das obras */}
@@ -75,7 +80,7 @@ export function Intro({ onStart }: { onStart: () => void }) {
             onClick={onStart}
             className="group inline-flex w-full items-center justify-center gap-3 rounded-md bg-primary px-8 py-5 font-display text-lg font-semibold uppercase tracking-wide text-primary-foreground transition-colors hover:bg-primary/90 sm:w-auto"
           >
-            Quero minha proposta
+            Iniciar minha proposta personalizada
             <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" />
           </button>
           <span className="font-mono text-xs text-muted-foreground">

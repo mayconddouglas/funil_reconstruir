@@ -1,6 +1,6 @@
 "use client"
 
-import { ArrowLeft, Check } from "lucide-react"
+import { ArrowLeft, Check, Compass, Expand, Hammer, PaintRoller, type LucideIcon } from "lucide-react"
 import type { Step } from "@/lib/funnel"
 
 type QuestionProps = {
@@ -12,6 +12,14 @@ type QuestionProps = {
   onBack: () => void
 }
 
+// Mapa dos ícones minimalistas usados na Etapa 1 (PRD seção 2).
+const ICONS: Record<string, LucideIcon> = {
+  Hammer,
+  PaintRoller,
+  Expand,
+  Compass,
+}
+
 export function Question({
   step,
   current,
@@ -21,6 +29,7 @@ export function Question({
   onBack,
 }: QuestionProps) {
   const progress = Math.round((current / total) * 100)
+  const almostThere = current >= total - 1
 
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-2xl flex-col px-5 py-8 sm:px-8">
@@ -35,12 +44,12 @@ export function Question({
             Voltar
           </button>
           <span className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            {step.index} / {String(total).padStart(2, "0")}
+            {almostThere ? "Você está quase lá" : `${step.index} / ${String(total).padStart(2, "0")}`}
           </span>
         </div>
         <div className="h-1 w-full overflow-hidden rounded-full bg-muted">
           <div
-            className="h-full rounded-full bg-primary transition-all duration-500"
+            className="h-full rounded-full bg-primary transition-all duration-500 ease-out"
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -63,25 +72,35 @@ export function Question({
         <div className="flex flex-col gap-3">
           {step.choices.map((choice) => {
             const isSelected = selected === choice.value
+            const Icon = choice.icon ? ICONS[choice.icon] : undefined
             return (
               <button
                 key={choice.value}
                 onClick={() => onSelect(choice.value)}
                 className={`group flex items-center justify-between gap-4 rounded-md border px-5 py-4 text-left transition-all ${
                   isSelected
-                    ? "border-primary bg-primary/10"
+                    ? "border-primary bg-primary/10 shadow-[0_0_0_1px_var(--color-primary),0_0_24px_-4px_var(--color-primary)]"
                     : "border-border bg-card hover:border-primary/50 hover:bg-card/80"
                 }`}
               >
-                <span className="flex flex-col">
-                  <span className="font-display text-lg font-medium uppercase tracking-wide">
-                    {choice.label}
-                  </span>
-                  {choice.hint && (
-                    <span className="text-sm text-muted-foreground">
-                      {choice.hint}
-                    </span>
+                <span className="flex items-center gap-4">
+                  {Icon && (
+                    <Icon
+                      className={`size-5 shrink-0 transition-colors ${
+                        isSelected ? "text-primary" : "text-muted-foreground group-hover:text-primary/70"
+                      }`}
+                    />
                   )}
+                  <span className="flex flex-col">
+                    <span className="font-display text-lg font-medium uppercase tracking-wide">
+                      {choice.label}
+                    </span>
+                    {choice.hint && (
+                      <span className="text-sm text-muted-foreground">
+                        {choice.hint}
+                      </span>
+                    )}
+                  </span>
                 </span>
                 <span
                   className={`flex size-6 shrink-0 items-center justify-center rounded-full border transition-colors ${
