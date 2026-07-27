@@ -180,3 +180,45 @@ export function trackWhatsappLead(answers: Answers, contact: Contact) {
     cidade: contact.cidade || undefined,
   })
 }
+
+// ================================================================
+//  MICROSOFT CLARITY API
+//  Referência: https://learn.microsoft.com/en-us/clarity/setup-and-installation/clarity-api
+//  Usado para dar mais precisão às gravações: tags para filtrar sessões
+//  por resposta, eventos para enxergar onde o funil perde gente, e
+//  "upgrade" para garantir que toda sessão de lead convertido seja
+//  sempre gravada (sem entrar na amostragem quando o tráfego é alto).
+//
+//  Importante (privacidade/LGPD): nunca envie nome, telefone ou outro
+//  dado pessoal identificável como tag ou evento — só atributos
+//  agregados do funil (tipo de projeto, padrão, etc).
+// ================================================================
+declare global {
+  interface Window {
+    clarity?: (...args: unknown[]) => void
+  }
+}
+
+function clarityCall(...args: unknown[]) {
+  if (typeof window === "undefined" || typeof window.clarity !== "function") return
+  try {
+    window.clarity(...args)
+  } catch {
+    // Nunca deixar uma falha do Clarity quebrar o funil.
+  }
+}
+
+/** Marca a sessão com uma tag filtrável no painel do Clarity (Filtros). */
+export function clarityTag(key: string, value: string | string[]) {
+  clarityCall("set", key, value)
+}
+
+/** Registra um evento nomeado (aparece em Filtros/Dashboard/Gravações). */
+export function clarityEvent(name: string) {
+  clarityCall("event", name)
+}
+
+/** Prioriza a sessão atual para gravação, evitando que seja descartada por amostragem. */
+export function clarityUpgrade(reason: string) {
+  clarityCall("upgrade", reason)
+}

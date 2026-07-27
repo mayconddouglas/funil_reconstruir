@@ -3,7 +3,16 @@
 import { useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { CheckCircle2, MessageCircle } from "lucide-react"
-import { STEPS, buildWhatsappUrl, trackWhatsappLead, type Answers, type Contact } from "@/lib/funnel"
+import {
+  STEPS,
+  buildWhatsappUrl,
+  trackWhatsappLead,
+  clarityTag,
+  clarityEvent,
+  clarityUpgrade,
+  type Answers,
+  type Contact,
+} from "@/lib/funnel"
 import { Intro } from "./intro"
 import { Question } from "./question"
 import { ContactStep } from "./contact"
@@ -39,6 +48,10 @@ export function Funnel() {
     try {
       if (!stepId || value === undefined || stepIndex === undefined) return
       setAnswers((prev) => ({ ...prev, [stepId]: value }))
+      // Tag filtrável ("filtros" no Clarity) + evento na timeline da gravação.
+      // Nunca envia PII, só o par pergunta/resposta do funil.
+      clarityTag(stepId, value)
+      clarityEvent(`funil_etapa_${stepId}`)
       // pequeno atraso para o usuário ver a seleção (feedback visual) antes de avançar
       setTimeout(() => goTo(stepIndex + 1), 220)
     } catch (error) {
@@ -54,6 +67,10 @@ export function Funnel() {
       goTo("done")
       // dispara o evento padrão "Lead" do Meta Pixel (requer NEXT_PUBLIC_META_PIXEL_ID configurado)
       trackWhatsappLead(answers, contact)
+      // Clarity: marca a conversão e garante que essa sessão nunca seja
+      // descartada por amostragem, mesmo em dias de tráfego alto.
+      clarityEvent("lead_convertido")
+      clarityUpgrade("lead convertido - contato enviado")
       // abre o WhatsApp automaticamente
       if (typeof window !== "undefined") {
         window.open(url, "_blank", "noopener,noreferrer")
@@ -77,7 +94,12 @@ export function Funnel() {
           exit="exit"
           transition={{ duration: 0.35, ease: "easeOut" }}
         >
-          <Intro onStart={() => goTo(0)} />
+          <Intro
+            onStart={() => {
+              clarityEvent("funil_iniciado")
+              goTo(0)
+            }}
+          />
         </motion.div>
       )}
 
