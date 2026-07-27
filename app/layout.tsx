@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Inter, Oswald, Fraunces } from 'next/font/google'
 import Script from 'next/script'
+import { InAppBrowserBanner } from '@/components/in-app-browser-banner'
 import './globals.css'
 
 // ID do Meta Pixel. Configure em Vercel > Settings > Environment Variables.
@@ -75,6 +76,7 @@ export default function RootLayout({
             })(window, document, "clarity", "script", "${CLARITY_PROJECT_ID}");
           `}
         </Script>
+        <InAppBrowserBanner />
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
