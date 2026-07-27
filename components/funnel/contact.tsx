@@ -30,7 +30,7 @@ export function ContactStep({ total, onBack, onSubmit }: ContactStepProps) {
   const showPhoneError = phoneDigits.length === 11 && !phoneValid
 
   function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
+    e?.preventDefault?.()
     if (!valid) return
     onSubmit({ nome: nome.trim(), whatsapp: phoneDigits, cidade: cidade.trim() })
   }

@@ -25,25 +25,45 @@ export function Funnel() {
   const [waUrl, setWaUrl] = useState("")
 
   function goTo(next: Screen) {
-    setDirection(typeof next === "number" && typeof screen === "number" ? (next > screen ? 1 : -1) : 1)
-    setScreen(next)
+    try {
+      setDirection(typeof next === "number" && typeof screen === "number" ? (next > screen ? 1 : -1) : 1)
+      setScreen(next)
+    } catch (error) {
+      // Falha silenciosa: nunca travar a navegação do funil por um erro
+      // momentâneo de renderização (ex: transição do Framer Motion).
+      console.warn("[funnel] falha ao trocar de etapa:", error)
+    }
   }
 
-  function selectAnswer(stepId: string, value: string, stepIndex: number) {
-    setAnswers((prev) => ({ ...prev, [stepId]: value }))
-    // pequeno atraso para o usuário ver a seleção (feedback visual) antes de avançar
-    setTimeout(() => goTo(stepIndex + 1), 220)
+  function selectAnswer(stepId?: string, value?: string, stepIndex?: number) {
+    try {
+      if (!stepId || value === undefined || stepIndex === undefined) return
+      setAnswers((prev) => ({ ...prev, [stepId]: value }))
+      // pequeno atraso para o usuário ver a seleção (feedback visual) antes de avançar
+      setTimeout(() => goTo(stepIndex + 1), 220)
+    } catch (error) {
+      console.warn("[funnel] falha ao registrar resposta:", error)
+    }
   }
 
-  function handleContact(contact: Contact) {
-    const url = buildWhatsappUrl(answers, contact)
-    setWaUrl(url)
-    goTo("done")
-    // dispara o evento padrão "Lead" do Meta Pixel (requer NEXT_PUBLIC_META_PIXEL_ID configurado)
-    trackWhatsappLead(answers, contact)
-    // abre o WhatsApp automaticamente
-    window.open(url, "_blank", "noopener,noreferrer")
+  function handleContact(contact?: Contact) {
+    try {
+      if (!contact?.nome || !contact?.whatsapp) return
+      const url = buildWhatsappUrl(answers, contact)
+      setWaUrl(url)
+      goTo("done")
+      // dispara o evento padrão "Lead" do Meta Pixel (requer NEXT_PUBLIC_META_PIXEL_ID configurado)
+      trackWhatsappLead(answers, contact)
+      // abre o WhatsApp automaticamente
+      if (typeof window !== "undefined") {
+        window.open(url, "_blank", "noopener,noreferrer")
+      }
+    } catch (error) {
+      console.warn("[funnel] falha ao enviar contato:", error)
+    }
   }
+
+  const currentStep = typeof screen === "number" && screen >= 0 && screen < STEPS.length ? STEPS[screen] : undefined
 
   return (
     <AnimatePresence mode="wait" custom={direction} initial={false}>
@@ -108,9 +128,9 @@ export function Funnel() {
         </motion.div>
       )}
 
-      {typeof screen === "number" && screen >= 0 && screen < STEPS.length && (
+      {currentStep && typeof screen === "number" && (
         <motion.div
-          key={STEPS[screen].id}
+          key={currentStep.id}
           custom={direction}
           variants={slideVariants}
           initial="enter"
@@ -119,11 +139,11 @@ export function Funnel() {
           transition={{ duration: 0.3, ease: "easeOut" }}
         >
           <Question
-            step={STEPS[screen]}
+            step={currentStep}
             current={screen + 1}
             total={STEPS.length}
-            selected={answers[STEPS[screen].id]}
-            onSelect={(value) => selectAnswer(STEPS[screen].id, value, screen)}
+            selected={answers[currentStep.id]}
+            onSelect={(value) => selectAnswer(currentStep.id, value, screen)}
             onBack={() => goTo(screen - 1)}
           />
         </motion.div>
